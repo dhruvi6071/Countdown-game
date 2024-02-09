@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+
+// let timer; //variable no use karie to 2 timer ne aek sathe chalu na kari shakaay km ke pahelu start thayelu timer no variable bija ne work nai karva de
 
 export default function TimerChallange({title, targetTime}) {
+    const timer = useRef();
+
     const[timeStarted, setTimeStarted] = useState(false);
     const[timeExpired, setTimeExpired] = useState(false);
 
+   
+
     function handleStart() {
-        setTimeout(() => {
+       timer.current = setTimeout(() => {
             setTimeExpired(true);
         }, targetTime*1000);
 
@@ -13,7 +19,7 @@ export default function TimerChallange({title, targetTime}) {
     }
 
     function handleStop() {
-        
+        clearTimeout(timer.current);
     }
 
     return <section className="challenge">
@@ -23,7 +29,7 @@ export default function TimerChallange({title, targetTime}) {
             {targetTime} second{targetTime>1 ? 's' : ''}
          </p>
          <p>
-            <button onClick={handleStart}>
+            <button onClick={timeStarted ? handleStop : handleStart}>
                 {timeStarted ? 'Stop' : 'Start'} Challenge
             </button>
          </p>
