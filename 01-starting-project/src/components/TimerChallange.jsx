@@ -14,7 +14,7 @@ export default function TimerChallenge({ title, targetTime }) {
   function handleStart() {
     timer.current = setTimeout(() => {
       setTimerExpired(true);
-      dialog.current.showModal();
+      dialog.current.open();
     }, targetTime * 1000);
 
     setTimerStarted(true);
@@ -23,7 +23,8 @@ export default function TimerChallenge({ title, targetTime }) {
   function handleStop() {
     clearTimeout(timer.current);
   }
-
+// useImperativeHandle(first prop must be the ref by forwardref, second prop should be a function which contains all the properties that need to be exposed )
+ 
   return (
     <>
       <ResultModel ref={dialog} targetTime={targetTime} result="lost" />
