@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 
  const ResultModel = forwardRef(function  ResultModel({ result, targetTime }, ref) {
   return (
-    <>
+    
       <dialog ref={ref} className="result-modal">
         <h2>You {result}</h2>
         <p>
@@ -15,7 +15,7 @@ import { forwardRef } from "react";
           <button>Close</button>
         </form>
       </dialog>
-    </>
+    
   );
 })
 
