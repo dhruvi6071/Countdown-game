@@ -1,10 +1,11 @@
 import { useState, useRef } from "react";
+import ResultModel from "./ResultModel";
 
 // let timer; //variable no use karie to 2 timer ne aek sathe chalu na kari shakaay km ke pahelu start thayelu timer no variable bija ne work nai karva de
 
 export default function TimerChallange({title, targetTime}) {
     const timer = useRef();
-
+    const dialog = useRef();
     const[timeStarted, setTimeStarted] = useState(false);
     const[timeExpired, setTimeExpired] = useState(false);
 
@@ -13,6 +14,7 @@ export default function TimerChallange({title, targetTime}) {
     function handleStart() {
        timer.current = setTimeout(() => {
             setTimeExpired(true);
+            dialog.current.showModel();
         }, targetTime*1000);
 
         setTimeStarted(true);
@@ -22,7 +24,10 @@ export default function TimerChallange({title, targetTime}) {
         clearTimeout(timer.current);
     }
 
-    return <section className="challenge">
+    return (
+    <>
+    {<ResultModel ref={dialog} targetTime={targetTime}  result="lost "/>  }
+    <section className="challenge">
          <h2>{title}</h2>
          {timeExpired && <p>You Lost !</p>}
          <p className="challenge-time">
@@ -37,4 +42,6 @@ export default function TimerChallange({title, targetTime}) {
             {timeStarted ? 'Time running...' : 'Timer inactive'}
          </p>
     </section>
+    </>
+    );
 }
